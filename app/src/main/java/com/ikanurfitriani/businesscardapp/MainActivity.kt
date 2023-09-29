@@ -62,7 +62,7 @@ fun CardName() {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding()
     ) {
-        // Untuk menampilkan foto
+        // Untuk menampilkan gambar/foto
         Image(
             // Untuk mengambil gambar dari resource drawable
             painter = painterResource(id = R.drawable.profile_ika_n),
@@ -168,7 +168,9 @@ fun PageofApp() {
     ) {
         Column(
             modifier = Modifier
+                // Untuk mengambil seluruh ruang tata letak yang tersedia
                 .weight(1f)
+                // Untuk mengisi maksimum lebar yang tersedia
                 .fillMaxWidth(),
             // Membuat elemen-elemen berada di tengah secara vertikal
             verticalArrangement = Arrangement.Center,
