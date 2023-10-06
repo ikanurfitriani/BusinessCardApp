@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import com.ikanurfitriani.businesscardapp.ui.theme.BusinessCardAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -45,146 +46,143 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.onBackground
                 ) {
-                    // Fungsi yang memanggil komponen atau halaman utama dari aplikasi
-                    PageofApp()
+                    // Memanggil fungsi utama yaitu BusinessCardApp dari aplikasi
+                    BusinessCardApp()
                 }
             }
         }
     }
 }
-
-// Blok fungsi CardName untuk menampilkan bagian atas halaman yang terdiri foto, nama dan title
-@Composable
-fun CardName() {
-    // Untuk menampilkan konten dalam bentuk Column
-    Column(
-        // Untuk membuat konten column ada di tengah-tengah halaman
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding()
-    ) {
-        // Untuk menampilkan gambar/foto
-        Image(
-            // Untuk mengambil gambar dari resource drawable
-            painter = painterResource(id = R.drawable.profile_ika_n),
-            contentDescription = "Foto Profile Ika",
-            Modifier
-                // Ukuran gambar yang digunakan 220 dp
-                .size(220.dp)
-                // Mengubah bentuk tampilan gambar menjadi bentuk lingkaran
-                .clip(CircleShape)
-                // Menambahkan border di sekeliling gambar/foto
-                .border(10.dp, MaterialTheme.colorScheme.secondary, CircleShape)
-        )
-        // Menambahkan ruang kosong sebesar 8 dp diantara elemen-elemen tata letak
-        Spacer(modifier = Modifier.size(8.dp))
-        // Untuk menampilkan text
-        Text(
-            // Menampilkan nama saya yaitu Ika Nurfitriani
-            text = "Ika Nurfitriani",
-            style = TextStyle(
-                // Ukuran font yang digunakan untuk nama sebesar 42 sp
-                fontSize = 42.sp
-            )
-        )
-        // Menambahkan ruang kosong sebesar 8 dp diantara elemen-elemen tata letak
-        Spacer(modifier = Modifier.size(8.dp))
-        // Untuk menampilkan text
-        Text(
-            // Menampilkan title saya yaitu Android Developer Enthusiast
-            text = "Android Developer Enthusiast",
-            style = TextStyle(
-                // Ukuran font yang digunakan untuk title sebesar 24 sp
-                fontSize = 24.sp,
-                // Warna font yang digunakan untuk title adalah warna biru
-                color = Color(0xFF1E06F1)
-            )
-        )
-    }
-}
-
-// Blok fungsi ContactInfo untuk menampilkan bagian bawah halaman yang terdapat informasi kontak saya
-@Composable
-fun ContactInfo() {
-    // Blok untuk membuat variabel yang menyimpan data dalam list
-    val contactInformation = listOf(
-        ListContact(R.drawable.baseline_call_24, "+6282116055338", "Icon Call"),
-        ListContact(R.drawable.baseline_share_24, "@ikanurfitriani", "Icon Share"),
-        ListContact(R.drawable.baseline_email_24, "ikanurfitriani513@gmail.com", "Icon Email")
-    )
-    // Untuk menampilkan konten dalam bentuk Column
-    Column(
-        // Untuk menambahkan ruang kosong sebesar 14 dp agar berjarak
-        modifier = Modifier.padding(14.dp),
-        // Untuk mengatur elemen dalam kolom secara vertikal agar ada di tengah-tengah kolom
-        verticalArrangement = Arrangement.Center,
-        // Untuk mengatur elemen-elemen agar dimulai dari sebelah kiri dan diatur secara horizontal
-        horizontalAlignment = Alignment.Start
-    ) {
-        // Untuk menampilkan text
-        Text(
-            // Menampilkan 3 kata yaitu My Contact Information
-            text = "My Contact Information :",
-            style = TextStyle(
-                // Ukuran font/huruf yang digunakan sebesar 22 sp
-                fontSize = 22.sp,
-                textAlign = TextAlign.Center
-            )
-        )
-        // Menambahkan ruang kosong sebesar 8 dp diantara elemen-elemen tata letak
-        Spacer(modifier = Modifier.size(8.dp))
-        contactInformation.forEach { item ->
-            // Untuk mengatur elemen dalam row
-            Row(
-                // Menambahkan ruang kosong sebesar 8 dp diantara elemen-elemen tata letak
-                modifier = Modifier.padding(8.dp),
-                // Membuat elemen-elemen berada di tengah secara vertikal
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Untuk menampilkan gambar
-                Image(
-                    painter = painterResource(id = item.icon),
-                    contentDescription = item.contentDescription,
-                    // Mengatur ukuran gambar sebesar 32 dp
-                    modifier = Modifier.size(32.dp)
-                )
-                // Menambahkan ruang kosong sebesar 14 dp diantara elemen-elemen tata letak
-                Spacer(modifier = Modifier.size(14.dp))
-                Text(text = item.text)
-            }
-        }
-    }
-}
-
 // Untuk membuat kelas baru yaitu ListContact
 data class ListContact(val icon: Int, val text: String, val contentDescription: String = "")
 
-// Blok fungsi PageofApp untuk menampilkan semua bagian halaman
+// Blok fungsi BusinessCardApp untuk menampilkan semua bagian halaman
 @Composable
-fun PageofApp() {
+fun BusinessCardApp() {
     // Untuk mengatur elemen dalam column
     Column(
         // Membuat elemen-elemen berada di tengah secara horizontal
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            // Untuk mengisi seluruh ruang yang tersedia dalam komposisi
+            .fillMaxSize()
+            // Menambahkan jarak sebesar 16 density-independent pixel dari semua sisi column
+            .padding(16.dp)
     ) {
-        Column(
+        // Bagian atas businesscard menggunakan Box
+        Box(
             modifier = Modifier
                 // Untuk mengambil seluruh ruang tata letak yang tersedia
                 .weight(1f)
                 // Untuk mengisi maksimum lebar yang tersedia
                 .fillMaxWidth(),
-            // Membuat elemen-elemen berada di tengah secara vertikal
-            verticalArrangement = Arrangement.Center,
-            // Membuat elemen-elemen berada di tengah secara horizontal
-            horizontalAlignment = Alignment.CenterHorizontally
+            // Untuk mengatur konten di dalam Box agar berada di tengah
+            contentAlignment = Alignment.Center
         ) {
-            // Untuk memanggil fungsi CardName
-            CardName()
+            // Untuk mengatur elemen dalam column
+            Column(
+                // Membuat elemen-elemen berada di tengah secara vertikal
+                verticalArrangement = Arrangement.Center,
+                // Membuat elemen-elemen berada di tengah secara horizontal
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                // Untuk menampilkan gambar/foto
+                Image(
+                    // Untuk mengambil gambar dari resource drawable
+                    painter = painterResource(id = R.drawable.profile_ika_n),
+                    // Untuk memberikan deskripsi tentang gambar profil Ika
+                    contentDescription = "Foto Profile Ika",
+                    modifier = Modifier
+                        // Ukuran gambar yang digunakan 220 dp
+                        .size(220.dp)
+                        // Mengubah bentuk tampilan gambar menjadi bentuk lingkaran
+                        .clip(CircleShape)
+                        // Menambahkan border di sekeliling gambar/foto
+                        .border(10.dp, MaterialTheme.colorScheme.secondary, CircleShape)
+                )
+                // Menambahkan ruang kosong sebesar 10 dp diantara elemen-elemen tata letak
+                Spacer(modifier = Modifier.size(10.dp))
+                // Untuk mengatur dan menampilkan text
+                Text(
+                    // Menampilkan nama saya yaitu Ika Nurfitriani
+                    text = "Ika Nurfitriani",
+                    style = TextStyle(
+                        // Ukuran font yang digunakan untuk nama sebesar 42 sp
+                        fontSize = 42.sp
+                    )
+                )
+                // Menambahkan ruang kosong sebesar 10 dp diantara elemen-elemen tata letak
+                Spacer(modifier = Modifier.size(10.dp))
+                // Untuk mengatur dan menampilkan text
+                Text(
+                    // Menampilkan title/job saya yaitu Android Developer Enthusiast
+                    text = "Android Developer Enthusiast",
+                    style = TextStyle(
+                        // Ukuran font yang digunakan untuk title sebesar 24 sp
+                        fontSize = 24.sp,
+                        // Warna font yang digunakan untuk title adalah warna biru
+                        color = Color(0xFF1E06F1)
+                    )
+                )
+            }
         }
-        // Untuk memanggil fungsi ContactInfo
-        ContactInfo()
-        // Menambahkan ruang kosong sebesar 30 dp diantara elemen-elemen tata letak
-        Spacer(modifier = Modifier.size(30.dp))
+
+        // Spacer untuk memberikan ruang kosong sebesar 16 dp
+        Spacer(modifier = Modifier.size(16.dp))
+
+        // Blok untuk membuat variabel yang menyimpan data dalam list
+        val contactInformation = listOf(
+            ListContact(R.drawable.baseline_call_24, "+6282116055338", "Icon Call"),
+            ListContact(R.drawable.baseline_share_24, "@ikanurfitriani", "Icon Share"),
+            ListContact(R.drawable.baseline_email_24, "ikanurfitriani513@gmail.com", "Icon Email")
+        )
+        // Untuk menampilkan konten dalam bentuk Column
+        Column(
+            // Untuk mengatur elemen dalam kolom secara vertikal agar ada di tengah-tengah kolom
+            verticalArrangement = Arrangement.Center,
+            // Untuk mengatur elemen-elemen agar dimulai dari sebelah kiri dan diatur secara horizontal
+            horizontalAlignment = Alignment.Start
+        ) {
+            // Untuk mengatur dan menampilkan text
+            Text(
+                text = "My Contact Information :",
+                style = TextStyle(
+                    // Ukuran font/huruf yang digunakan sebesar 24 sp
+                    fontSize = 24.sp,
+                    // Mengatur teks agar terpusat secara horizontal di dalam elemen
+                    textAlign = TextAlign.Center
+                )
+            )
+            // Menambahkan ruang kosong sebesar 10 dp diantara elemen-elemen tata letak
+            Spacer(modifier = Modifier.size(10.dp))
+            // Menggunakan for untuk menampilkan list contactInformation
+            for (myContact in contactInformation) {
+                // Untuk mengatur elemen dalam row
+                Row(
+                    // Menambahkan ruang kosong sebesar 10 dp diantara elemen-elemen tata letak
+                    modifier = Modifier.padding(10.dp),
+                    // Membuat elemen-elemen berada di tengah secara vertikal
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    // Untuk menampilkan gambar
+                    Image(
+                        // Untuk mengambil gambar dari resource drawable
+                        painter = painterResource(id = myContact.icon),
+                        // Untuk memberikan deskripsi tentang gambar profil Ika
+                        contentDescription = myContact.contentDescription,
+                        // Mengatur ukuran gambar sebesar 32 dp
+                        modifier = Modifier.size(32.dp)
+                    )
+                    // Menambahkan ruang kosong sebesar 14 dp diantara elemen-elemen tata letak
+                    Spacer(modifier = Modifier.size(14.dp))
+                    // Untuk mengatur dan menampilkan text
+                    Text(text = myContact.text)
+                }
+            }
+        }
     }
+    // Menambahkan ruang kosong sebesar 48 dp diantara elemen-elemen tata letak
+    Spacer(modifier = Modifier.size(48.dp))
 }
 
 // Menampilkan pratinjau aplikasi kartu nama dengan tema terang
@@ -195,8 +193,8 @@ fun PageofApp() {
     showBackground = false,
     name = "Dark Mode"
 )
-// Fungsi composable untuk menampilkan pratinjau halaman fungsi PageofApp yang berisi kartu nama
+// Fungsi composable untuk menampilkan pratinjau halaman fungsi BusinessCardApp yang berisi kartu nama
 @Composable
 fun CardNamePreview() {
-    PageofApp()
+    BusinessCardApp()
 }
