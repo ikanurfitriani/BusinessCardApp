@@ -155,8 +155,12 @@ fun BusinessCardApp() {
             )
             // Menambahkan ruang kosong sebesar 10 dp diantara elemen-elemen tata letak
             Spacer(modifier = Modifier.size(10.dp))
-            // Menggunakan for untuk menampilkan list contactInformation
-            for (myContact in contactInformation) {
+
+            // Menggunakan WHILE LOOP untuk menampilkan list contactInformation
+            var index = 0
+            while (index < contactInformation.size) {
+                // Mengakses elemen dalam contactInformation menggunakan index saat ini dan menyimpannya dalam variabel myContact
+                val myContact = contactInformation[index]
                 // Untuk mengatur elemen dalam row
                 Row(
                     // Menambahkan ruang kosong sebesar 10 dp diantara elemen-elemen tata letak
@@ -164,11 +168,11 @@ fun BusinessCardApp() {
                     // Membuat elemen-elemen berada di tengah secara vertikal
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Untuk menampilkan gambar
+                    // Untuk menampilkan gambar/foto
                     Image(
                         // Untuk mengambil gambar dari resource drawable
                         painter = painterResource(id = myContact.icon),
-                        // Untuk memberikan deskripsi tentang gambar profil Ika
+                        // Untuk memberikan deskripsi
                         contentDescription = myContact.contentDescription,
                         // Mengatur ukuran gambar sebesar 32 dp
                         modifier = Modifier.size(32.dp)
@@ -178,6 +182,8 @@ fun BusinessCardApp() {
                     // Untuk mengatur dan menampilkan text
                     Text(text = myContact.text)
                 }
+                // Untuk meningkatkan nilai index setelah setiap iterasi
+                index++
             }
         }
     }
@@ -195,6 +201,6 @@ fun BusinessCardApp() {
 )
 // Fungsi composable untuk menampilkan pratinjau halaman fungsi BusinessCardApp yang berisi kartu nama
 @Composable
-fun CardNamePreview() {
+fun BusinessCardPreview() {
     BusinessCardApp()
 }
